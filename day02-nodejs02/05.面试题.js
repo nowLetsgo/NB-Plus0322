@@ -22,4 +22,3 @@ Promise.resolve()
     .then(() => {
         console.log(6)
     })
-

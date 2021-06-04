@@ -36,7 +36,7 @@ Promise.resolve().then(function () {
 
 
 // 1 3 4 2
-Promise.resolve().then(() => {
+/* Promise.resolve().then(() => {
     console.log(1);
     process.nextTick(() => {
         console.log(2);
@@ -49,4 +49,4 @@ Promise.resolve().then(function () {
     }).catch(function () {
         console.log(4);
     });
-});
+}); */

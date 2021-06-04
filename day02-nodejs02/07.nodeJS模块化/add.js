@@ -18,7 +18,7 @@ function add(...rest) {
 //1.暴露出去的是一个对象 对象里有一个add方法
 //将来引入这个模块的的时候，接收的是一个对象，对象中有add
 //可以暴露多个方法或属性
-// module.exports.add = add;
+module.exports.add = add;
 //一次暴露多个
 /* module.exports = {
     add1,
@@ -28,7 +28,7 @@ function add(...rest) {
 //2.把默认module.exports指向的对象 直接更换为了add方法，所以暴露的直接是add方法
 //将来引入的模块的时候，接受的直接是add方法
 //只能暴露一个方法
-module.exports.add = add;
+// module.exports = add;
 
 
 //3.相当于给module.exports默认的对象添加了一个方法 也可以暴露出去
