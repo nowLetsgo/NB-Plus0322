@@ -16,7 +16,10 @@ const server = http.createServer((request, response) => {
     response.end("你真棒")
 })
 
+
+let port = "3000";
+let host = '127.0.0.1';
 //给当前创建的服务添加端口号和主机地址,第三个参数是个回调函数，当启动服务的时候调用
-server.listen("3000", "192.168.17.28", () => {
-    console.log("服务器启动");
+server.listen(port, host, () => {
+    console.log("服务器启动,请访问：" + `http://${host}:${port}`);
 })
