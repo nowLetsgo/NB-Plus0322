@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/nowLetsgo/NB-Plus0322/issues"
   },
-  "homepage": "https://github.com/nowLetsgo/NB-Plus0322#readme"
+  "homepage": "https://github.com/nowLetsgo/NB-Plus0322#readme",
+  "dependencies": {
+    "mongoose": "^5.12.13"
+  }
 }
