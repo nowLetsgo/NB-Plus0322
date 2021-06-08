@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .err {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="/static/err.jpg" width="300" alt="">
+    <h1>
+        <span class="err"><%- errData %></span>
+        <br>
+        请重新选择以下的跳转连接
+    </h1>
+    <div>
+        <a href="./index.html">回到主页</a>
+        <a href="./login.html">登录页面</a>
+        <a href="./register.html">注册页面</a>
+    </div>
+
+</body>
+
+</html>
