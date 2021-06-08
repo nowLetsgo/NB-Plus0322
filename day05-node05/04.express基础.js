@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
     console.log("/ 被请求了");
     // console.log(req);
     console.log(req.method); //请求方式
-    console.log(req.params); //POST请求的数据
+    console.log(req.params); 
     console.log(req.query); //GET请求的查询字符串组成的对象
     console.log(req.url); //请求的路径信息
 
