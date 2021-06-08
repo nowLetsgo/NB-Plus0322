@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>
+        <%- data %>
+    </h2>
+    <h2>
+        <%- name %>
+    </h2>
+
+    <h2>
+        <% user.forEach((item)=>{ %>
+        姓名是: <%- item.name %>
+        性别是: <%- item.sex %>
+        年龄是: <%- item.age %>
+        <br>
+        <% }) %>
+    </h2>
+</body>
+
+</html>
