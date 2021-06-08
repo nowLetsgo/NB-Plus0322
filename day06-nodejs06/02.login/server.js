@@ -71,9 +71,21 @@ app.get("/login", async (req, res) => {
     //如果用户名存在，则判断密码是否正确
     if (isHasUser.password === password) {
         return res.send("登录成功")
-    } 
+    }
     return res.send("密码错误");
 
+})
+
+
+//图片接口
+app.get("/static/:src", (req, res) => {
+    // console.log(req.params)
+    const {
+        src
+    } = req.params;
+
+    const filePath = path.resolve(__dirname, "./static", src);
+    res.sendFile(filePath);
 })
 
 
