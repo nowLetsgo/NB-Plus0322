@@ -71,7 +71,7 @@ app.get("/login", async (req, res) => {
     //如果用户名存在，则判断密码是否正确
     if (isHasUser.password === password) {
         return res.send("登录成功")
-    }
+    } 
     return res.send("密码错误");
 
 })
