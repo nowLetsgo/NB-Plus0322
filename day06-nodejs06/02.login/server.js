@@ -1,11 +1,21 @@
 //引入express
 const express = require("express");
 
+//创建一个express的application对象
+const app = express();
+
 //引入path
 const path = require("path");
 
 //引入mongoose
 const mongoose = require("mongoose");
+
+//引入ejs
+const ejs = require("ejs");
+
+//通知express使用ejs模板引擎
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 //连接数据库
 require("./db")
@@ -13,8 +23,7 @@ require("./db")
 //引入mongoose的当前用户信息集合
 const userModel = require("./model/userModel");
 
-//创建一个express的application对象
-const app = express();
+
 
 //注册接口
 app.get("/register", async (req, res) => {
@@ -26,7 +35,13 @@ app.get("/register", async (req, res) => {
     } = req.query;
 
     //查看用户的账号和密码是否为空
-    if (!username || !password) return res.send("账号密码不能为空");
+    if (!username || !password) {
+        //拼接err.ejs的路径
+        const filePath = path.resolve(__dirname, "./public/err.ejs");
+        return res.render(filePath, {
+            errData: "账号或者密码不能为空"
+        })
+    }
 
     //判断当前的用户名是否被注册
     //去数据库查询当前的用户名
@@ -34,7 +49,13 @@ app.get("/register", async (req, res) => {
         username
     })
 
-    if (isHasUser) return res.send("用户名已经被注册");
+    if (isHasUser) {
+        //拼接err.ejs的路径
+        const filePath = path.resolve(__dirname, "./public/err.ejs");
+        return res.render(filePath, {
+            errData: "用户名已经被注册"
+        })
+    };
 
 
     //向数据库写入当前用户信息
@@ -44,7 +65,9 @@ app.get("/register", async (req, res) => {
     });
 
     console.log(registerData)
-    res.send("注册成功");
+    // res.send("注册成功");
+    //如果注册成功则直接重定向到登录页面
+    res.redirect("/login.html")
 
 })
 
@@ -57,7 +80,13 @@ app.get("/login", async (req, res) => {
     } = req.query;
 
     //查看用户的账号和密码是否为空
-    if (!username || !password) return res.send("账号密码不能为空");
+    if (!username || !password) {
+        //拼接err.ejs的路径
+        const filePath = path.resolve(__dirname, "./public/err.ejs");
+        return res.render(filePath, {
+            errData: "账号或者密码不能为空"
+        })
+    };
 
     //根据username去数据库查询是否存在该用户
     const isHasUser = await userModel.findOne({
@@ -66,14 +95,27 @@ app.get("/login", async (req, res) => {
 
     //如果有没有用户名则返回用户名不存在
     console.log(isHasUser) //如果不存在则返回null
-    if (!isHasUser) return res.send("用户名不存在");
+    if (!isHasUser) {
+        //拼接err.ejs的路径
+        const filePath = path.resolve(__dirname, "./public/err.ejs");
+        return res.render(filePath, {
+            errData: "用户名不存在"
+        })
+    }
 
     //如果用户名存在，则判断密码是否正确
-    if (isHasUser.password === password) {
-        return res.send("登录成功")
+    if (isHasUser.password != password) {
+        //拼接err.ejs的路径
+        const filePath = path.resolve(__dirname, "./public/err.ejs");
+        return res.render(filePath, {
+            errData: "密码错误"
+        })
     }
-    return res.send("密码错误");
 
+    // return res.send("登录成功")
+    //登录成功跳转到个人中心页
+    const filePath = path.resolve(__dirname, "./public/center.html")
+    res.sendFile(filePath);
 })
 
 
