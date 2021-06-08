@@ -16,6 +16,31 @@ const userModel = require("./model/userModel");
 //创建一个express的application对象
 const app = express();
 
+//注册接口
+app.get("/register", async (req, res) => {
+    //查看用户输入内容 拿到用户名和密码
+    console.log(req.query);
+    const {
+        username,
+        password
+    } = req.query;
+
+    //查看用户的账号和密码是否有空
+    if (!username || !password) return res.send("账号密码不能为空");
+
+    //向数据库写入当前用户信息
+    const registerData = await userModel.create({
+        username,
+        password
+    });
+
+    console.log(registerData)
+    res.send("注册成功");
+
+})
+
+
+
 //默认路径是index.html
 app.get("/", (req, res) => {
     //当访问根目录则默认重定向到index.html
