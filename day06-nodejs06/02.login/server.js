@@ -1,6 +1,9 @@
 //引入express
 const express = require("express");
 
+//引入path
+const path = require("path");
+
 //引入mongoose
 const mongoose = require("mongoose");
 
@@ -13,7 +16,29 @@ const userModel = require("./model/userModel");
 //创建一个express的application对象
 const app = express();
 
-
+//默认路径是index.html
+app.get("/", (req, res) => {
+    //当访问根目录则默认重定向到index.html
+    res.redirect("/index.html")
+})
+//index.html的路径
+app.get("/index.html", (req, res) => {
+    //获取index.html的路径
+    const filePath = path.resolve(__dirname, "./public/index.html");
+    res.sendFile(filePath);
+})
+//login.html的路径
+app.get("/login.html", (req, res) => {
+    //获取index.html的路径
+    const filePath = path.resolve(__dirname, "./public/login.html");
+    res.sendFile(filePath);
+})
+//register.html的路径
+app.get("/register.html", (req, res) => {
+    //获取index.html的路径
+    const filePath = path.resolve(__dirname, "./public/register.html");
+    res.sendFile(filePath);
+})
 
 
 //监听端口号和服务器状态
