@@ -25,8 +25,17 @@ app.get("/register", async (req, res) => {
         password
     } = req.query;
 
-    //查看用户的账号和密码是否有空
+    //查看用户的账号和密码是否为空
     if (!username || !password) return res.send("账号密码不能为空");
+
+    //判断当前的用户名是否被注册
+    //去数据库查询当前的用户名
+    const isHasUser = await userModel.findOne({
+        username
+    })
+
+    if (isHasUser) return res.send("用户名已经被注册");
+
 
     //向数据库写入当前用户信息
     const registerData = await userModel.create({
@@ -36,6 +45,34 @@ app.get("/register", async (req, res) => {
 
     console.log(registerData)
     res.send("注册成功");
+
+})
+
+//登录接口
+app.get("/login", async (req, res) => {
+    //拿到用户的登录信息
+    const {
+        username,
+        password
+    } = req.query;
+
+    //查看用户的账号和密码是否为空
+    if (!username || !password) return res.send("账号密码不能为空");
+
+    //根据username去数据库查询是否存在该用户
+    const isHasUser = await userModel.findOne({
+        username
+    });
+
+    //如果有没有用户名则返回用户名不存在
+    console.log(isHasUser) //如果不存在则返回null
+    if (!isHasUser) return res.send("用户名不存在");
+
+    //如果用户名存在，则判断密码是否正确
+    if (isHasUser.password === password) {
+        return res.send("登录成功")
+    }
+    return res.send("密码错误");
 
 })
 
