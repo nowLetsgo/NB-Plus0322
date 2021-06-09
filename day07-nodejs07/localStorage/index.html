@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">设置</button>
+    <script>
+        /* 
+            localStorage:本地存储
+                - 把数据保存在本地磁盘上，按照浏览器和域名存储
+                - 保存的数据长期存在，每次访问的时候都可以直接读取到数据
+                - 大小为5M左右
+                - 仅限客户端时候，不和服务端通信
+                - 跨页面通信
+                - 接口封装非常nice
+
+            接口：
+                设置：localStorage.setItem(key,value)
+                获取：localStorage.getItem(key)
+                删除：localStorage.removeItem(key)
+
+
+            临时存储接口：（页面关闭即消失，不能夸页面通信）
+                设置：sessionStorage.setItem(key,value)
+                获取：sessionStorage.getItem(key)
+                删除：sessionStorage.removeItem(key)
+                
+        */
+
+        const oBtn = document.getElementById('btn');
+        oBtn.onclick = function () {
+            const person = {
+                name: "laowang",
+                age: 80,
+                sex: "nan"
+            }
+
+            sessionStorage.setItem("user1", JSON.stringify(person))
+        }
+    </script>
+</body>
+
+</html>

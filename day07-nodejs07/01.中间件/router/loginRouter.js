@@ -40,7 +40,12 @@ router.get("/login", async (req, res) => {
         })
     }
 
-    // return res.send("登录成功")
+    //登录成功要设置cookie响应给客户端(把ID设置给cookie)
+    res.cookie("userID", isHasUser._id, {
+        maxAge: 1000 * 60 * 60 * 24, //http1.1提供，以毫秒为单位
+        // expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), //http1.0提供
+        httpOnly: true
+    });
     //登录成功跳转到个人中心页
     const filePath = path.resolve(__dirname, "../views/center.html")
     res.sendFile(filePath);

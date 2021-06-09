@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">查看</button>
+    <script>
+        const oBtn = document.getElementById('btn');
+        oBtn.onclick = function () {
+            //查看上个页面添加的信息
+            console.log(JSON.parse(localStorage.getItem("user1")));
+
+            //查看完成并删除
+            localStorage.removeItem("user1")
+        }
+    </script>
+</body>
+
+</html>
