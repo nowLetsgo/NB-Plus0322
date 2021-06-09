@@ -11,7 +11,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 //引入ejs
-const ejs = require("ejs");
+// const ejs = require("ejs");
 
 //通知express使用ejs模板引擎
 app.set("view engine", "ejs");
@@ -153,17 +153,6 @@ app.get("/login", async (req, res) => {
     res.sendFile(filePath);
 })
 
-
-//图片接口
-app.get("/static/:src", (req, res) => {
-    // console.log(req.params)
-    const {
-        src
-    } = req.params;
-
-    const filePath = path.resolve(__dirname, "./static", src);
-    res.sendFile(filePath);
-})
 
 
 //监听端口号和服务器状态
