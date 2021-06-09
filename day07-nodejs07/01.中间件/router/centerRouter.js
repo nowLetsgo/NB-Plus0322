@@ -14,29 +14,27 @@ router.use("/center.html", async (req, res, next) => {
     console.log(req.cookies); //cookie-parser方法拿cookie
     // console.log(req.headers.cookie); //原生的方法拿cookie
 
-    if (req.cookies.userID) {
-        try {
-            //如果cookies的userID存在，则去数据库判断是否有该用户
-            const re = await userModel.findOne({
-                _id: req.cookies.userID
-            })
-            if (re) {
-                next();
-            } else {
-                //拼接err.ejs的路径
-                const filePath = path.resolve(__dirname, "../views/err.ejs");
-                return res.render(filePath, {
-                    errData: "权限不足，请重新登录再访问个人中心页"
-                })
-            }
-        } catch (e) {
+    try {
+        const re = await userModel.findOne({
+            _id: req.cookies.userID
+        })
+        if (re) {
+            next();
+        } else {
+            //没有查询到当前的userID
+            // 清除掉当前的错误cookie
+            res.clearCookie("userID")
             //拼接err.ejs的路径
             const filePath = path.resolve(__dirname, "../views/err.ejs");
             return res.render(filePath, {
                 errData: "权限不足，请重新登录再访问个人中心页"
             })
         }
-    } else {
+
+    } catch (e) {
+        //查询userID出错
+        // 清除掉当前的错误cookie
+        res.clearCookie("userID")
         //拼接err.ejs的路径
         const filePath = path.resolve(__dirname, "../views/err.ejs");
         return res.render(filePath, {
