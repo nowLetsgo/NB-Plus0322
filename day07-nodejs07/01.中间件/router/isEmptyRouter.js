@@ -4,9 +4,7 @@ const router = new express.Router();
 
 const path = require("path");
 
-
-//处理账号和密码是否为空的中间件
-router.use((req, res, next) => {
+const isEmptyRouterFn = (req, res, next) => {
     //查看用户输入内容 拿到用户名和密码
     const {
         username,
@@ -24,6 +22,12 @@ router.use((req, res, next) => {
 
     //当处理完成需要继续向下走的话 需要调用next方法
     next();
-})
+}
+
+//处理账号和密码是否为空的中间件
+router.use("/login", isEmptyRouterFn)
+
+//处理账号和密码是否为空的中间件
+router.use("/register", isEmptyRouterFn)
 
 module.exports = router;

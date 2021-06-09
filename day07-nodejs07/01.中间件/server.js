@@ -18,6 +18,7 @@ const isEmptyRouter = require("./router/isEmptyRouter");
 const regRouter = require("./router/regRouter");
 const registerRouter = require("./router/registerRouter");
 const loginRouter = require("./router/loginRouter");
+const centerRouter = require("./router/centerRouter");
 
 
 
@@ -36,6 +37,7 @@ app.use(isEmptyRouter)
 app.use(regRouter)
 app.use(registerRouter)
 app.use(loginRouter)
+app.use(centerRouter)
 
 //监听端口号和服务器状态
 let port = "3002";

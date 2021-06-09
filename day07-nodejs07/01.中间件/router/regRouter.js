@@ -4,8 +4,7 @@ const router = new express.Router();
 
 const path = require("path");
 
-//处理账号和密码的正则校验
-router.use((req, res, next) => {
+const regRouterFn = (req, res, next) => {
     //查看用户输入内容 拿到用户名和密码
     const {
         username,
@@ -24,7 +23,10 @@ router.use((req, res, next) => {
 
     next();
 
-})
+}
+//处理账号和密码的正则校验
+router.use("/login", regRouterFn)
+router.use("/register", regRouterFn)
 
 
 module.exports = router;

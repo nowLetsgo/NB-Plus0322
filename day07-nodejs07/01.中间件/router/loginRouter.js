@@ -42,7 +42,7 @@ router.get("/login", async (req, res) => {
 
     // return res.send("登录成功")
     //登录成功跳转到个人中心页
-    const filePath = path.resolve(__dirname, "../public/center.html")
+    const filePath = path.resolve(__dirname, "../views/center.html")
     res.sendFile(filePath);
 })
 
