@@ -12,16 +12,18 @@ const app = express();
 
 app.get("/", (req, res) => {
     const filePath = path.resolve(__dirname, "./index.html");
-    const rs = fs.createReadStream(filePath);
-    rs.pipe(res);
+    /* const rs = fs.createReadStream(filePath);
+    rs.pipe(res); */
+
+    res.sendFile(filePath)
 })
 
 /* 
     强制缓存：
     - 强制缓存就是向浏览器缓存查找该请求结果，并根据该结果的缓存规则来决定是否使用该缓存结果的过程。
     - 简单来讲就是强制浏览器使用当前缓存
-    - 首先请求头需要携带Cache-Control的信息为max-age = 时间：客户端允许开启强制缓存
-    - 响应头需要携带Cache-Control的信息为max-age = 时间：服务端也允许开启强制缓存
+    - 首先请求头需要携带"Cache-Control"的信息为"max-age = 时间"：客户端允许开启强制缓存
+    - 响应头需要携带"Cache-Control"的信息为"max-age = 时间"：服务端也允许开启强制缓存
 
 
 */
