@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="#" id="form">
+        user: <input type="text" name="user" id="user">
+        <br>
+        pass: <input type="password" name="pass" id="pass">
+        <br>
+        <button id="btn">提交</button>
+    </form>
+    <script>
+        const oForm = document.getElementById('form')
+        const oUser = document.getElementById('user')
+        const oPass = document.getElementById('pass')
+        const oBtn = document.getElementById('btn')
+
+
+        oForm.onsubmit = function (e) {
+            //1.实例化XMLHttpRequest对象，得到一个ajax请求对象
+            const xhr = new XMLHttpRequest();
+            //2.打开连接open方法(参数1:请求方式，参数2：请求地址  参数3：是否异步)
+            xhr.open("get", "/login", true);
+            //3.发送请求 send方法
+            xhr.send();
+            //4.xhr有一个onreadystatechange事件可以接受请求过程中readystate码的改变
+            xhr.onreadystatechange = function () {
+                //当readyStat变成4，并且响应状态码status是200的时候代表请求真正完成
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    //有两个属性接收到响应
+                    //xhr.responseText:接受文本数据 json 字符串等
+                    //xhr.responseXML:接受XML的数据
+                    // console.log(xhr.responseText);
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+            //阻止默认事件
+            // e.preventDefault ? e.preventDefault() : e.returnValue = false;
+            return false;
+        }
+    </script>
+</body>
+
+</html>
