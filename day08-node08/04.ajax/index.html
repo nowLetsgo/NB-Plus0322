@@ -23,19 +23,57 @@
         const oBtn = document.getElementById('btn')
 
 
-        oForm.onsubmit = function (e) {
+        /* oForm.onsubmit = function (e) {
             //1.实例化XMLHttpRequest对象，得到一个ajax请求对象
             const xhr = new XMLHttpRequest();
             //2.打开连接open方法(参数1:请求方式，参数2：请求地址  参数3：是否异步)
-            xhr.open("get", "/login", true);
+            xhr.open("get", `/login?user=${oUser.value}&pass=${oPass.value}&t=${Date.now()}`, true);
             //3.发送请求 send方法
-            xhr.send();
+            xhr.send(null);
             //4.xhr有一个onreadystatechange事件可以接受请求过程中readystate码的改变
             xhr.onreadystatechange = function () {
                 //当readyStat变成4，并且响应状态码status是200的时候代表请求真正完成
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     //有两个属性接收到响应
-                    //xhr.responseText:接受文本数据 json 字符串等
+                    //xhr.responseText:接受文本数据 json 字符串等 
+                    //xhr.responseXML:接受XML的数据
+                    // console.log(xhr.responseText);
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+            //阻止默认事件
+            // e.preventDefault ? e.preventDefault() : e.returnValue = false;
+            return false;
+        } */
+
+
+
+
+        oForm.onsubmit = function (e) {
+            //1.实例化XMLHttpRequest对象，得到一个ajax请求对象
+            const xhr = new XMLHttpRequest();
+            //2.打开连接open方法(参数1:请求方式，参数2：请求地址  参数3：是否异步)
+            xhr.open("post", `/login`, true);
+
+            /* //如果是post请求 则需要设置请求头
+            xhr.setRequestHeader("Content-Type", "application/json;charset=utf-8")
+            //3.发送请求 send方法
+            xhr.send(JSON.stringify({
+                user: oUser.value,
+                pass: oPass.value
+            })); */
+
+            //如果是post请求 则需要设置请求头
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
+            //3.发送请求 send方法
+            xhr.send(`user=${oUser.value}&pass=${oPass.value}`);
+
+            //4.xhr有一个onreadystatechange事件可以接受请求过程中readystate码的改变
+            xhr.onreadystatechange = function () {
+                //当readyStat变成4，并且响应状态码status是200的时候代表请求真正完成
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    //有两个属性接收到响应
+                    //xhr.responseText:接受文本数据 json 字符串等 
                     //xhr.responseXML:接受XML的数据
                     // console.log(xhr.responseText);
                     console.log(JSON.parse(xhr.responseText));
