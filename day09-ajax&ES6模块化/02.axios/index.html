@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head>
+
+<body>
+    <button id="btn">提交</button>
+    <script>
+        $("#btn").click(function () {
+            //get请求1-数据放在url地址上
+            /* const p1 = axios.get("/login?user=laoli&pass=123");
+            console.log(p1);
+            p1.then(mes => {
+                console.log(mes);
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            }) */
+
+            //get的参数不想写在url上
+            /* axios.get("/login", {
+                params: {
+                    user: "laoli",
+                    pass: "123",
+                }
+            }).then(mes => {
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            }) */
+
+
+
+            // post请求
+            /* axios.post("/login", {
+                user: "laoli",
+                pass: "123"
+            }).then(mes => {
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            }) */
+
+
+            /* const p1 = axios({ 
+                method: "get",
+                url: "/login",
+                params: { //get请求的请求的数据使用 params
+                    user: "laoli",
+                    pass: "123"
+                }
+            });
+            console.log(p1); */
+
+
+            const p1 = axios({
+                method: "post",
+                url: "/login",
+                data: { //post请求的请求的数据使用 data
+                    user: "laoli",
+                    pass: "123"
+                },
+                Headers: {
+                    "cache-control": "max-age=0"
+                }
+            });
+            console.log(p1);
+
+
+        })
+    </script>
+</body>
+
+</html>

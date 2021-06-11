@@ -13,8 +13,8 @@
     <button id="btn">提交</button>
     <script>
         $("#btn").click(function () {
-            //jquery的ajax
-            $.ajax({
+            //jQuery的ajax
+            /* $.ajax({
                 method: "get", //控制请求方式
                 url: "/login", //请求地址
                 cache: false, //是否缓存
@@ -30,6 +30,42 @@
                 success(data) { //请求成功的回调函数
                     console.log(data); //请求得到的数据
                 }
+            }) */
+
+
+
+            /* 
+                jQuery的ajax二级封装
+                $.get()
+                $.post()
+            */
+
+            /* $.get("/login", {
+                user: "laoli",
+                pass: "123"
+            }, (data) => {
+                console.log(data);
+            }) */
+
+
+            /* $.post("/login", {
+                user: "laoli",
+                pass: "123"
+            }, (data) => {
+                console.log(data);
+            }) */
+
+
+            /* 
+                jQuery的三级封装
+                $.getJSON();
+            */
+
+            $.getJSON("/login", {
+                user: "laoli",
+                pass: "123"
+            }, (data) => {
+                console.log(data);
             })
         })
     </script>
