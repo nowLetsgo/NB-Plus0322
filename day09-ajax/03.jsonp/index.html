@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">提交</button>
+    <script>
+        const oBtn = document.getElementById('btn');
+        /* 
+            因为浏览器拥有一个同源策略，所以我们无法进行ajax跨域请求
+            跨域：违背了同源策略（协议，域名，端口号有一个不一致）
+            script标签的src属性是可以跨域请求的，我们使用script标签进行跨域请求方式被称作为jsonp
+        
+        */
+
+        function fn(data) {
+            console.log(data);
+        }
+        let newScript = null;
+        oBtn.onclick = function () {
+            if (newScript) {
+                newScript.remove();
+            }
+            //创建一个script标签
+            newScript = document.createElement("script");
+            //给script标签一个src 这个src就是我们跨域请求的地址
+            newScript.src = "http://127.0.0.1:3000/login?user=laoli&pass=123&callback=fn";
+            //把script标签插入到html中，就会自动发送请求
+            document.body.appendChild(newScript);
+        }
+    </script>
+
+
+</body>
+
+</html>

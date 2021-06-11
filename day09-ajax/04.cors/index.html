@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head>
+
+<body>
+    <button id="btn">请求</button>
+    <script>
+        const oBtn = document.getElementById('btn');
+        oBtn.onclick = function () {
+            axios.get("http://127.0.0.1:3000/login?user=laoli&pass=123")
+                .then((data) => {
+                    console.log(data);
+                }).catch(err => {
+                    console.log(err);
+                })
+        }
+    </script>
+</body>
+
+</html>

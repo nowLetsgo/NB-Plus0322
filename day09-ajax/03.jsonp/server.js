@@ -7,7 +7,7 @@ app.get("/login", (req, res) => {
     const {
         user,
         pass,
-        cb
+        callback
     } = req.query;
     console.log(req.query);
 
@@ -17,7 +17,7 @@ app.get("/login", (req, res) => {
             code: 1
         }
         res.set("content-type", "application/javascript;charset=utf-8");
-        return res.send(`${cb}(${JSON.stringify(data)})`);
+        return res.send(`${callback}(${JSON.stringify(data)})`);
 
     }
 

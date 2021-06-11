@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <script>
+        const oBtn = document.getElementById('btn');
+        oBtn.onclick = function () {
+            $.getJSON("http://127.0.0.1:3000/login?user=laoli&pass=123&callback=?", function (data) {
+                console.log(data);
+            })
+        }
+    </script>
+</body>
+
+</html>
