@@ -23,10 +23,17 @@
 
         const p2 = p1.then((data) => {
             console.log(data);
+            return 123;
+            return new myPromise((resolve, reject) => {
+                // resolve("111");
+                // reject("2222");
+            })
         }, (reason) => {
             console.log(reason);
-        });
+        })
+
         console.log(p2);
+        // p2.then();
     </script>
 </body>
 

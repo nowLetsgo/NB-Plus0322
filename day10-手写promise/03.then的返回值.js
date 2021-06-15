@@ -19,7 +19,9 @@ function myPromise(exector) {
         //为了保证then中的onResolved函数永远是异步的，则我们给他包裹一层异步代码
         //保证onRejected执行的时候，then要已经执行过了
         setTimeout(() => {
-            _this.callback.onResolved(value);
+            //因为并不是每一次的resolve方法都要执行then 所以并不是每一次都有onResolved方法，所以需要判断
+            _this.callback.onResolved && _this.callback.onResolved(value);
+            // _this.callback?.onResolved(value);
         })
 
     }
@@ -31,7 +33,7 @@ function myPromise(exector) {
         //为了保证then中的onResolved函数永远是异步的，则我们给他包裹一层异步代码
         //保证onRejected执行的时候，then要已经执行过了
         setTimeout(() => {
-            _this.callback.onRejected(reason);
+            _this.callback.onRejected && _this.callback.onRejected(reason);
         })
     }
 
