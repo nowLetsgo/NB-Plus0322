@@ -28,7 +28,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 //引入的路径需要使用commonjs规范
 //当引入的模块是默认暴露的时候  
 //当引入的模块是统一暴露或者分别暴露的时候 必须使用解构赋值的方法接受
-console.log(_person.name);
+//无法直接接受暴露的对象，一般使用解构赋值
+// import person from "./person";
+//如果一定想要一个对象保存所有的暴露值
+// import * as person from "./person"
+console.log("111111", person);
+console.log(_mins.name);
 (0, _mins.hello)();
 (0, _add["default"])(1, 2);
 /* 
@@ -56,7 +61,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.hello = hello;
 exports.mins = mins;
-var name = "laowang";
+exports.name = void 0;
+var name = "laohuang";
+exports.name = name;
 
 function mins(a, b) {
   console.log(a - b);

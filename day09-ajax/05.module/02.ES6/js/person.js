@@ -7,4 +7,4 @@ export const sex = "nan";
 
 export function say() {
     console.log("goodBye");
-}
+} 

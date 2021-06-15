@@ -6,16 +6,25 @@ import add from "./add";
 //当引入的模块是统一暴露或者分别暴露的时候 必须使用解构赋值的方法接受
 import {
     hello,
-    mins
+    mins,
+    name
 } from "./mins"
 
 import {
-    name,
+    //当重名的时候给某个变量起一个别名
+    name as name1,
     age,
     sex,
     say
 } from "./person";
 
+//无法直接接受暴露的对象，一般使用解构赋值
+// import person from "./person";
+
+//如果一定想要一个对象保存所有的暴露值
+// import * as person from "./person"
+
+console.log("111111", person);
 
 console.log(name);
 hello();

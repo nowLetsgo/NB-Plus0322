@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./01.promise构造函数.js"></script>
+</head>
+
+<body>
+    <script>
+        const p1 = new myPromise((resolve, reject) => {
+            console.log("prmise同步代码");
+            setTimeout(() => {
+                resolve("success");
+                reject("fail");
+            }, 1000)
+        });
+
+        console.log(p1);
+    </script>
+</body>
+
+</html>

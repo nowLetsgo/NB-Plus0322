@@ -5,7 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.hello = hello;
 exports.mins = mins;
-var name = "laowang";
+exports.name = void 0;
+var name = "laohuang";
+exports.name = name;
 
 function mins(a, b) {
   console.log(a - b);
