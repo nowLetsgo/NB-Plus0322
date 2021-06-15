@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./04.catch方法.js"></script>
+    <script src="./06.resolve和reject的静态方法.js"></script>
 </head>
 
 <body>
     <script>
-        const p1 = new myPromise((resolve, reject) => {
+        /* const p1 = new myPromise((resolve, reject) => {
             console.log("prmise同步代码");
             setTimeout(() => {
                 // resolve("success");
@@ -19,20 +19,22 @@
             }, 1000)
         });
 
+        const p2 = p1.finally(() => {
+            // return 123;
+            return new myPromise((resolve, reject) => {
+                // resolve(123);
+                reject(123);
+            })
+        })
+
+        console.log(p2); */
+
+
+        const p1 = myPromise.reject(new myPromise((resolve, reject) => {
+            resolve(123);
+            // reject(123);
+        }));
         console.log(p1);
-
-        const p2 = p1.then((data) => {
-            console.log(data);
-        })
-
-        const p3 = p2.catch((reason) => {
-            console.log(reason);
-        })
-
-
-
-
-        console.log(p3);
     </script>
 </body>
 

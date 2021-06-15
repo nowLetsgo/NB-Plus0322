@@ -108,3 +108,35 @@ myPromise.prototype.then = function (onResolved, onRejected) {
 myPromise.prototype.catch = function (onRejected) {
     return this.then(null, onRejected);
 }
+
+//finally处理
+myPromise.prototype.finally = function (onResolved) {
+    //finally的返回值 主要是看调用finally方法的promise对象
+    //this是调用finally方法的promise对象
+    //this有两种状态，成功或者失败，我们要分别处理,使用then即可
+    return this.then((value) => {
+        //当调用finally的是成功的promise对象的时候
+        //不要传参，因为finally接受不到参数的
+        const re = onResolved();
+        //判断re是不是promise对象
+        if (re instanceof myPromise) {
+            //then方法只写一个参数的时候，如果成功调用，则返回成功，如果失败调用则一定返回失败
+            return re.then(() => {
+                return value;
+            })
+        } else {
+            return value;
+        }
+    }, (reason) => {
+        const re = onResolved();
+        if (re instanceof myPromise) {
+            return re.then(() => {
+                //计算re是成功的 finally也会返回失败
+                throw reason;
+            })
+        } else {
+            //只要报错 则then直接返回失败的promis对象
+            throw reason;
+        }
+    })
+}
