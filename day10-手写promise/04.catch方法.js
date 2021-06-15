@@ -45,6 +45,17 @@ function myPromise(exector) {
 myPromise.prototype.then = function (onResolved, onRejected) {
     const _this = this;
 
+    //用户在then的时候 可能不传递第二个参数函数，所以我们需要进行一个处理
+    onRejected = typeof onRejected !== "function" ? function (reason) {
+        //如果用户没有传递第二个参数，则我们处理第二个参数的时候，直接把调用then的失败的信息返回即可
+        throw reason;
+    } : onRejected;
+
+    //catch其实就是then不传递第一个参数，但是可能会有成功的promise调用catch，需要对第一个参数处理
+    onResolved = typeof onResolved !== "function" ? function (value) {
+        return value;
+    } : onResolved;
+
     //then方法一定会返回一个promise对象
     return new myPromise((resolve, reject) => {
         //封装两个函数onResolved，onRejected 给到实例化对象，让promise中的resolve和reject之后调用
@@ -90,4 +101,9 @@ myPromise.prototype.then = function (onResolved, onRejected) {
         };
     });
 
+}
+
+
+myPromise.prototype.catch = function (onRejected) {
+    return this.then(null, onRejected);
 }
