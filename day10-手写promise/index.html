@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./01.promise构造函数.js"></script>
+    <script src="./02.promise的then方法.js"></script>
 </head>
 
 <body>
@@ -14,12 +14,21 @@
         const p1 = new myPromise((resolve, reject) => {
             console.log("prmise同步代码");
             setTimeout(() => {
-                resolve("success");
+                // resolve("success");
                 reject("fail");
             }, 1000)
+
+            // resolve(111);
+            // reject("fail");
         });
 
         console.log(p1);
+
+        p1.then((data) => {
+            console.log(data);
+        }, (reason) => {
+            console.log(reason);
+        })
     </script>
 </body>
 
