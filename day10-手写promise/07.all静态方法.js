@@ -168,5 +168,29 @@ myPromise.reject = function (reason) {
     })
 }
 
-
-
+//all静态方法
+myPromise.all = function (promises) {
+    return new myPromise((resolve, reject) => {
+        //声明一个空数组，用来存放每一个promise的值
+        const promiseArr = [];
+        //获取promises的总长度
+        const promisesLen = promises.length;
+        //声明一个成功计数器
+        let promiseCount = 0;
+        promises.forEach((promise, index) => {
+            promise.then((value) => {
+                //每次成功则计数器累加
+                promiseCount++;
+                //把每一个成功的值放入数组中
+                promiseArr[index] = value;
+                //当全部成功 则返回成功的promise对象 并且值是这个数组
+                if (promiseCount === promisesLen) {
+                    resolve(promiseArr)
+                }
+            }, (reason) => {
+                //只要有一个失败。直接返回失败
+                reject(reason)
+            })
+        })
+    })
+}

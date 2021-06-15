@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./06.resolve和reject的静态方法.js"></script>
+    <script src="./08.allSettled静态方法.js"></script>
 </head>
 
 <body>
@@ -30,11 +30,36 @@
         console.log(p2); */
 
 
-        const p1 = myPromise.reject(new myPromise((resolve, reject) => {
+        /* const p1 = myPromise.reject(new myPromise((resolve, reject) => {
             resolve(123);
             // reject(123);
         }));
-        console.log(p1);
+        console.log(p1); */
+
+
+
+        const p1 = new myPromise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("success");
+                // reject("fail");
+            }, 1000)
+        });
+
+        const p2 = new myPromise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("success");
+                // reject("fail");
+            }, 1000)
+        });
+        const p3 = new myPromise((resolve, reject) => {
+            setTimeout(() => {
+                // resolve("success");
+                reject("fail");
+            }, 1000)
+        });
+
+        const p4 = myPromise.allSettled([p1, p2, p3]);
+        console.log(p4);
     </script>
 </body>
 

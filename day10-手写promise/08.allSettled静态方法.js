@@ -168,5 +168,66 @@ myPromise.reject = function (reason) {
     })
 }
 
+//all静态方法
+myPromise.all = function (promises) {
+    return new myPromise((resolve, reject) => {
+        //声明一个空数组，用来存放每一个promise的值
+        const promiseArr = [];
+        //获取promises的总长度
+        const promisesLen = promises.length;
+        //声明一个成功计数器
+        let promiseCount = 0;
+        promises.forEach((promise, index) => {
+            promise.then((value) => {
+                //每次成功则计数器累加
+                promiseCount++;
+                //把每一个成功的值放入数组中
+                promiseArr[index] = value;
+                //当全部成功 则返回成功的promise对象 并且值是这个数组
+                if (promiseCount === promisesLen) {
+                    resolve(promiseArr)
+                }
+            }, (reason) => {
+                //只要有一个失败。直接返回失败
+                reject(reason)
+            })
+        })
+    })
+}
 
 
+myPromise.allSettled = function (promises) {
+    //一定返回一个promise对象
+    return new myPromise((resolve, reject) => {
+        //获取promises的总长度
+        const promisesLen = promises.length;
+        //声明一个成功计数器
+        let promiseCount = 0;
+        //声明一个空数组，用来存放每一个promise对象的状态和值组成的对象
+        const promiseArr = [];
+
+        //遍历promises数组
+        promises.forEach((promise, index) => {
+            promise.then((value) => {
+                //无论成功还是失败都要进行累加 和判断
+                promiseCount++
+                promiseArr[index] = {
+                    status: "resolved",
+                    value
+                }
+                if (promiseCount === promisesLen) {
+                    resolve(promiseArr)
+                }
+            }, (reason) => {
+                promiseCount++
+                promiseArr[index] = {
+                    status: "rejected",
+                    reason
+                }
+                if (promiseCount === promisesLen) {
+                    resolve(promiseArr)
+                }
+            })
+        })
+    })
+}

@@ -12,13 +12,12 @@
     <script>
         const p1 = new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve("success");
-                // reject("fail");
+                // resolve("success");
+                reject("fail");
             }, 1000)
         });
-        console.log(p1)
 
-        //成功promise调用finally 返回值：只有finally返回一个失败的promise对象 才能对finall的返回值有影响
+        /* //成功promise调用finally 返回值：只有finally返回一个失败的promise对象 才能对finall的返回值有影响
         //失败promise调用finally 一定返回失败的promise对象。返回值：只有finally返回一个失败的promise对象 才能对finally的返回值有影响
         const p2 = p1.finally(() => {
             // return 123;
@@ -27,7 +26,24 @@
                 // reject(123);
             })
         })
-        console.log(p2);
+        console.log(p2); */
+
+
+        const p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // resolve("success");
+                reject("fail");
+            }, 1000)
+        });
+        const p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // resolve("success");
+                reject("fail");
+            }, 1000)
+        });
+
+        const p4 = Promise.allSettled([p1, p2, p3]);
+        console.log(p4);
     </script>
 </body>
 
