@@ -12,17 +12,16 @@
     <script>
         const p1 = new Promise((resolve, reject) => {
             setTimeout(() => {
-                // resolve("success");
-                reject("fail");
+                resolve("success");
+                // reject("fail");
             }, 1000)
         });
         console.log(p1)
 
-        p1.then((data) => {
+        const p2 = p1.then((data) => {
             console.log(data);
-        }, (reason) => {
-            console.log(reason);
         })
+        console.log(p2);
     </script>
 </body>
 
