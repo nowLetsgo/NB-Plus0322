@@ -6,4 +6,4 @@ import '../less/public.less';
 import '../less/test.less';
 
 console.log(person);
-add(1, 2);
+add(2, 2);

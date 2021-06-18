@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     //入口路径配置
@@ -33,6 +34,20 @@ module.exports = {
                     name: './imgs/[hash:10].[ext]'
                 },
             }, ],
+        }, {
+            test: /\.html$/i,
+            loader: 'html-loader',
         }, ],
+    },
+    plugins: [new HtmlWebpackPlugin({
+        template: "./src/index.html"
+    })],
+
+    devServer: {
+        port: 8888,
+        host: "127.0.0.1",
+        open: true,
+        compress: true,
+        quiet: true
     }
 }
