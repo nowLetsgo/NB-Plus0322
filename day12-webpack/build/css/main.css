@@ -1,15 +1,1 @@
-body {
-  background-color: yellow;
-}
-
-#box {
-  width: 400px;
-  height: 400px;
-  background-color: red;
-}
-#box #con {
-  width: 200px;
-  height: 200px;
-  background: url(/imgs/8e372c00da.jpg);
-}
-
+body{background-color:#ff0}#box{background-color:red;height:400px;width:400px}#box #con{background:url(/imgs/8e372c00da.jpg);height:200px;width:200px}

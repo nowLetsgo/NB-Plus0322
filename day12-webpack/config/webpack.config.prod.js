@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
     //入口路径配置
@@ -12,7 +13,7 @@ module.exports = {
         publicPath: "/"
     },
     //打包环境
-    mode: "development",
+    mode: "production",
     //loader的配置
     module: {
         rules: [{
@@ -50,5 +51,11 @@ module.exports = {
         open: true,
         compress: true,
         quiet: true
-    }
+    },
+
+    optimization: {
+        minimizer: [
+            new CssMinimizerPlugin(),
+        ],
+    },
 }
