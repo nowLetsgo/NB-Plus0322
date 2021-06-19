@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">查询</button>
+        <button id="btn2">新增</button>
+        <button id="btn3">修改</button>
+        <button id="btn4">删除</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+        const oBtn3 = document.getElementById('btn3')
+        const oBtn4 = document.getElementById('btn4')
+        /* 
+            请求拦截器：
+                发送请求之前，先触发请求拦截器，然后才会发送请求
+                请求拦截器中接受的是requset的配置信息
+        
+        
+        */
+        //创建一个自定义配置的axios对象
+        const myaxios = axios.create({
+            baseURL: "http://localhost:3000"
+        });
+        //对某个axios对象进行请求拦截器配置
+        myaxios.interceptors.request.use((config) => {
+            console.log("请求拦截器成功");
+            //加入用户发送的数据是json对象，但是请求头是form表单
+            if (config.Headers["content-type"] === "application/x-www-form-urlencoded;charset=utf-8") {
+                config.data = Object.keys(config.data).reduce((p, c) => {
+                    return p + c + "=" + config.data[c] + "&"
+                }, "").slice(0, -1)
+            }
+
+            console.log(config);
+            //请求拦截器中要把config给return出去，否则视为取消请求
+            return config;
+        }, err => {
+            // console.log(err);
+            return Promise.reject(err)
+        });
+        //新增
+        oBtn2.onclick = function () {
+            myaxios({
+                    // url: "http://localhost:3000/posts?id=1",
+                    url: "/posts",
+                    data: {
+                        title: "vue",
+                        author: "laowang"
+                    },
+                    Headers: {
+                        "content-type": "application/x-www-form-urlencoded;charset=utf-8"
+                    },
+                    method: "POST"
+                })
+                .then(mes => {
+                    console.log(mes.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    </script>
+</body>
+
+</html>
