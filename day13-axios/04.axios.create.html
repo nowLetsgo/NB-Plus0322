@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">查询</button>
+        <button id="btn2">新增</button>
+        <button id="btn3">修改</button>
+        <button id="btn4">删除</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+        const oBtn3 = document.getElementById('btn3')
+        const oBtn4 = document.getElementById('btn4')
+
+        //提取公共路径
+        // axios.defaults.baseURL = "http://localhost:3000";
+
+        //创建一个自定义配置的axios对象
+        const myAxios1 = axios.create({
+            baseURL: "http://localhost:3000",
+            headers: {},
+            timeout: 30000
+        })
+
+        const myAxios2 = axios.create({
+            baseURL: "http://localhost:4000",
+            headers: {},
+            timeout: 30000
+        })
+
+        //查询
+        oBtn1.onclick = function () {
+            myAxios1({
+                    // url: "http://localhost:3000/posts?id=1",
+                    url: "/posts",
+                    params: {
+                        id: 3
+                    },
+                    method: "get"
+                })
+                .then(mes => {
+                    console.log(mes.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        oBtn2.onclick = function () {
+            myAxios2({
+                url: "/posts",
+                method: "post",
+                data: {
+                    "title": "css3",
+                    "author": "laoliu"
+                }
+            }).then(mes => {
+                console.log(mes);
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            })
+
+        }
+        oBtn3.onclick = function () {
+            axios({
+                method: "put",
+                url: "/posts/1",
+                data: {
+                    "title": "html5",
+                    "author": "laoliu1"
+                }
+            }).then(mes => {
+                console.log(mes);
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        oBtn4.onclick = function () {
+            axios({
+                    method: "delete",
+                    url: "/posts/1",
+
+                })
+                .then(mes => {
+                    console.log(mes);
+                    console.log(mes.data);
+                }).catch(err => {
+                    console.log(err);
+                })
+        }
+    </script>
+</body>
+
+</html>
