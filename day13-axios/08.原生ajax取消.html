@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">请求</button>
+        <button id="btn2">取消</button>
+    </div>
+    <script src="./axios.min.js"></script>
+    <script>
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+
+
+
+        //1.获取取消请求对象
+        const CancelToken = axios.CancelToken;
+        //新增
+        let xhr = null;
+        oBtn1.onclick = function () {
+            xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://127.0.0.1:3000/login?name=laowang&pass=123&t=" + Date.now(), true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState !== 4) return;
+                if (xhr.status === 200) {
+                    console.log("成功", xhr.responseText);
+                    return;
+                }
+                console.log("失败");
+            } 
+        }
+
+        oBtn2.onclick = function () {
+            //取消ajax请求
+            xhr.abort();
+        }
+    </script>
+</body>
+
+</html>

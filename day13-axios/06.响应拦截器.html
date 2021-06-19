@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">查询</button>
+        <button id="btn2">新增</button>
+        <button id="btn3">修改</button>
+        <button id="btn4">删除</button>
+    </div>
+    <script src="./axios.min.js"></script>
+    <script>
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+        const oBtn3 = document.getElementById('btn3')
+        const oBtn4 = document.getElementById('btn4')
+        /* 
+            请求拦截器：
+                发送请求之前，先触发请求拦截器，然后才会发送请求
+                请求拦截器中接受的是requset的配置信息
+        
+        
+        */
+        //创建一个自定义配置的axios对象
+        const myaxios = axios.create({
+            baseURL: "http://localhost:3000"
+        });
+
+        //对某个axios对象进行响应拦截器配置
+        myaxios.interceptors.response.use((response) => {
+            //请求成功
+            console.log("响应拦截器成功", response);
+            /* 
+                //计算200 ，但是拿到数据的也可能不是我们想要的，所以可以在响应拦截器进行配置
+                {
+                    code:10000,
+                    mes:"登录成功",
+                    data:{
+                        name:"laowang"
+                    }
+                }
+
+                {
+                    code:10001,
+                    mes:"登录失败",
+                }
+            */
+            if (response.data.code === 10000) {
+                return response.data;
+            } else {
+                Promise.reject(response.data.code)
+            }
+
+        }, (err) => {})
+        //新增
+        oBtn1.onclick = function () {
+            myaxios({
+                    url: "/login",
+                    params: {
+                        name: "laowang",
+                        pass: 123
+                    },
+                    method: "GET"
+                })
+                .then(mes => {
+                    console.log(mes);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    </script>
+</body>
+
+</html>

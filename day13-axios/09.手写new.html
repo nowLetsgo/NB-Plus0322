@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.do = function () {
+            console.log("核酸检测");
+        }
+
+        // const p1 = new Person("lijing", 37);
+        // console.log(p1);
+        /* 
+            new做了什么事情：
+                1. 创建了一个对象 并返回
+                2. 把构造函数的this指向了这个对象
+                3. 把对象的隐式原型指向了构造函数的显式原型
+                4. 判断构造函数的返回值 是基本类型还是对象类型，如果是基本类型则不影响返回的实例化对象，如果是对象类型，则new以后直接返回这个对象
+
+        */
+
+        function myNew(constr, ...rest) {
+            //1.创建一个对象 并返回
+            const obj = {};
+            //2.构造函数的this  拿到构造函数调用的返回值
+            const re = constr.apply(obj, rest);
+            //3.原型链的设置
+            obj.__proto__ = constr.prototype;
+
+            //4.判断返回值是基本类型还是对象类型
+            if (typeof re === "function" || typeof re === "object" && re !== null) {
+                return re;
+            }
+
+            return obj;
+        }
+
+        const p1 = myNew(Person, "laowang", 18);
+        console.log(p1);
+    </script>
+</body>
+
+</html>

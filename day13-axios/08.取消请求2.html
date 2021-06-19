@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">请求</button>
+        <button id="btn2">取消</button>
+    </div>
+    <script src="./axios.min.js"></script>
+    <script>
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+
+        //创建一个自定义配置的axios对象
+        const myaxios = axios.create({
+            baseURL: "http://localhost:3000"
+        });
+
+
+        //1.获取取消请求对象
+        const CancelToken = axios.CancelToken;
+        //新增
+        oBtn1.onclick = function () {
+            myaxios({
+                    url: "/login",
+                    params: {
+                        name: "laowang",
+                        pass: 123
+                    },
+                    method: "GET",
+                    //2.给要被取消的请求做一个标记
+                    cancelToken: new CancelToken(function executor(c) {
+                        cancel = c;
+                    })
+                })
+                .then(mes => {
+                    console.log(mes);
+                })
+                .catch(err => {
+                    //如果在请求的过程取消了请求，则进入catch中
+                    console.log(err);
+
+                    //4.判断是否是取消的
+                    //axios有一个isCancel方法 可以检测是否是因为取消请求而来的
+                    if (axios.isCancel(err)) {
+                        console.log("我是被取消之后送进来的");
+                    }
+                })
+        }
+
+        oBtn2.onclick = function () {
+            //3.取消请求
+            cancel("我就想取消你~")
+        }
+    </script>
+</body>
+
+</html>
