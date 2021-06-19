@@ -22,32 +22,32 @@
         const oBtn3 = document.getElementById('btn3')
         const oBtn4 = document.getElementById('btn4')
 
-        /* 
-            下载json-server
-            新建db.json
-            json-server --watch db.json启动服务器
-            可以开始访问接口
-        */
         //查询
         oBtn1.onclick = function () {
-            // axios.get("http://localhost:3000/posts?id=1")
-            // axios.get("http://localhost:3000/posts/1")
-            axios.get("http://localhost:3000/posts", {
+            axios({
+                    // url: "http://localhost:3000/posts?id=1",
+                    url: "http://localhost:3000/posts",
                     params: {
                         id: 1
-                    }
+                    },
+                    method: "get",
+                    timeout: 10000
                 })
                 .then(mes => {
-                    console.log(mes);
                     console.log(mes.data);
-                }).catch(err => {
+                })
+                .catch(err => {
                     console.log(err);
                 })
         }
         oBtn2.onclick = function () {
-            axios.post("http://localhost:3000/posts", {
-                "title": "react",
-                "author": "fxe"
+            axios({
+                url: "http://localhost:3000/posts",
+                method: "post",
+                data: {
+                    "title": "css3",
+                    "author": "laoliu"
+                }
             }).then(mes => {
                 console.log(mes);
                 console.log(mes.data);
@@ -57,9 +57,13 @@
 
         }
         oBtn3.onclick = function () {
-            axios.put("http://localhost:3000/posts/1", {
-                "title": "webpack",
-                "author": "hello"
+            axios({
+                method: "put",
+                url: "http://localhost:3000/posts/1",
+                data: {
+                    "title": "html5",
+                    "author": "laoliu1"
+                }
             }).then(mes => {
                 console.log(mes);
                 console.log(mes.data);
@@ -68,7 +72,11 @@
             })
         }
         oBtn4.onclick = function () {
-            axios.delete("http://localhost:3000/posts")
+            axios({
+                    method: "delete",
+                    url: "http://localhost:3000/posts/1",
+
+                })
                 .then(mes => {
                     console.log(mes);
                     console.log(mes.data);

@@ -1,23 +1,17 @@
 {
   "posts": [
     {
-      "title": "webpack",
-      "author": "hello",
-      "id": 1
-    },
-    {
       "title": "react",
       "author": "fxe",
       "id": 3
-    }
-  ],
-  "comments": [
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "css3",
+      "author": "laoliu",
+      "id": 4
     }
   ],
+  "comments": [],
   "profile": {
     "name": "typicode"
   },

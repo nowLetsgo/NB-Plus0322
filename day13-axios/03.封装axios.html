@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">查询</button>
+        <button id="btn2">新增</button>
+        <button id="btn3">修改</button>
+        <button id="btn4">删除</button>
+    </div>
+    <script>
+        function axios({
+            url,
+            method = "GET",
+            data = null,
+            params
+        }) {
+            return new Promise((resolve, reject) => {
+                //1.获取xhr对象
+                const xhr = new XMLHttpRequest();
+
+                //2.打开路径 需要判断是否存在params
+                let qs = ""; //初始化一个查询字符串
+                if (params) {
+                    /* 
+                        params:{
+                            name:"laowang",
+                            pass:"123"
+                        }
+                        处理为：?name=laowang&pass=123 拼接在url上
+                        
+                        Object.keys(params):把对象的key组成一个数组
+                    */
+                    qs = Object.keys(params).reduce((p, c) => {
+                        return p + c + "=" + params[c] + "&";
+                    }, "?").slice(0, -1);
+                    // console.log(qs);
+                }
+                //打开路径
+                xhr.open(method, url + qs, true);
+
+
+                // 3. 发送数据
+                method = method.toUpperCase();
+                //只有POST和PUT考虑data传值
+                if (method === "POST" || method === "PUT") {
+                    //data传递的都是对象格式，所以先处理data
+                    xhr.setRequestHeader("content-type", "application/json;charset=utf-8")
+                    xhr.send(JSON.stringify(data));
+                } else {
+                    xhr.send();
+                }
+
+
+                //4.事件
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4) return;
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        resolve({
+                            config: {},
+                            headers: {},
+                            data: JSON.parse(xhr.responseText)
+                        });
+                        return;
+                    }
+                    reject(`${url} ${xhr.statusText}`)
+                }
+
+
+
+            })
+        }
+
+
+
+        //测试
+
+
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+        const oBtn3 = document.getElementById('btn3')
+        const oBtn4 = document.getElementById('btn4')
+
+        //查询
+        oBtn1.onclick = function () {
+            axios({
+                    // url: "http://localhost:3000/posts?id=1",
+                    url: "http://localhost:3000/posts",
+                    params: {
+                        id: 3
+                    },
+                    method: "get",
+                    timeout: 10000
+                })
+                .then(mes => {
+                    console.log(mes);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+        
+    </script>
+</body>
+
+</html>
