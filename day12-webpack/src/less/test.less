@@ -2,10 +2,21 @@
     width: 400px;
     height: 400px;
     background-color: red;
+    animation: move 1s;
 
     #con {
         width: 200px;
         height: 200px;
         background: url("../img/haijing.jpg");
+    }
+}
+
+@keyframes move {
+    from {
+        transform: rotate(30deg);
+    }
+
+    to {
+        transform: rotate(80deg);
     }
 }

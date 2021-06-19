@@ -22,6 +22,21 @@ module.exports = {
                     loader: 'css-loader',
                 },
                 {
+                    loader: 'postcss-loader',
+                    options: {
+                        postcssOptions: {
+                            plugins: [
+                                [
+                                    'postcss-preset-env',
+                                    {
+                                        // 其他选项
+                                    },
+                                ],
+                            ],
+                        },
+                    },
+                },
+                {
                     loader: 'less-loader',
                 },
             ],
@@ -37,10 +52,33 @@ module.exports = {
         }, {
             test: /\.html$/i,
             loader: 'html-loader',
-        }, ],
+        }, {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env']
+                }
+            }
+        }],
     },
     plugins: [new HtmlWebpackPlugin({
-        template: "./src/index.html"
+        template: "./src/index.html",
+        minify: {
+            //去空格
+            collapseWhitespace: true,
+            //去注释
+            removeComments: true,
+            //去没用的属性
+            removeRedundantAttributes: true,
+            //去掉script标签的type属性
+            removeScriptTypeAttributes: true,
+            //去掉link标签的type属性
+            removeStyleLinkTypeAttributes: true,
+            //使用剪短的doctype
+            useShortDoctype: true
+        }
     }), new MiniCssExtractPlugin({
         filename: "css/[name].css"
     })],
@@ -56,6 +94,6 @@ module.exports = {
     optimization: {
         minimizer: [
             new CssMinimizerPlugin(),
-        ],
-    },
-}
+        ]
+    }
+};

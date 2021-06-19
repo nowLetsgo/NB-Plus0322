@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button id="btn1">查询</button>
+        <button id="btn2">新增</button>
+        <button id="btn3">修改</button>
+        <button id="btn4">删除</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const oBtn1 = document.getElementById('btn1')
+        const oBtn2 = document.getElementById('btn2')
+        const oBtn3 = document.getElementById('btn3')
+        const oBtn4 = document.getElementById('btn4')
+
+        //查询
+        oBtn1.onclick = function () {
+            // axios.get("http://localhost:3000/posts?id=1")
+            // axios.get("http://localhost:3000/posts/1")
+            axios.get("http://localhost:3000/posts", {
+                    params: {
+                        id: 1
+                    }
+                })
+                .then(mes => {
+                    console.log(mes);
+                    console.log(mes.data);
+                }).catch(err => {
+                    console.log(err);
+                })
+        }
+        oBtn2.onclick = function () {
+            axios.post("http://localhost:3000/posts", {
+                "title": "react",
+                "author": "fxe"
+            }).then(mes => {
+                console.log(mes);
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            })
+
+        }
+        oBtn3.onclick = function () {
+            axios.put("http://localhost:3000/posts/1", {
+                "title": "webpack",
+                "author": "hello"
+            }).then(mes => {
+                console.log(mes);
+                console.log(mes.data);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        oBtn4.onclick = function () {
+            axios.delete("http://localhost:3000/posts")
+                .then(mes => {
+                    console.log(mes);
+                    console.log(mes.data);
+                }).catch(err => {
+                    console.log(err);
+                })
+        }
+    </script>
+</body>
+
+</html>

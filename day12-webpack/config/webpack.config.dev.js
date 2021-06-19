@@ -49,5 +49,6 @@ module.exports = {
         open: true,
         compress: true,
         quiet: true
-    }
+    },
+    devtool: "source-map"
 }
